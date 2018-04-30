@@ -3,8 +3,6 @@ export interface IRecord<T> {
     modified: number;
 }
 
-let states: { [key: string]: State<any> } = {};
-
 export const STATESKEY = "states";
 
 export class State<TData> {
@@ -16,6 +14,9 @@ export class State<TData> {
     private static states: any;
 
     constructor(private key: string) {
+        if (this.key in Memory[STATESKEY]) {
+            this.record = Memory[STATESKEY][this.key];
+        }
     }
 
     static init(): void {
@@ -34,20 +35,19 @@ export class State<TData> {
 
     static clear(state: string | State<any>): void {
         if (state instanceof String) {
-            state = states[state as string];
+            state = State.states[state as string];
         }
         let affected: any = state;
         affected.record = { data: {} as any, modified: Game.time };
         delete Memory[STATESKEY][affected.key];
-        delete states[affected.key]
+        delete State.states[affected.key]
     }
 
     static saveAll(): void {
-        for (let key in states) {
-            states[key].save();
+        for (let key in State.states) {
+            State.states[key].save();
         }
     }
 }
-
 
 

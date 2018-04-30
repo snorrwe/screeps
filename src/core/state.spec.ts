@@ -13,7 +13,7 @@ describe("State tests", () => {
         global.Game = { time: 234 };
     });
 
-    afterEach(() =>{
+    afterEach(() => {
         global.Memory = undefined;
     });
 
@@ -36,5 +36,14 @@ describe("State tests", () => {
 
         expect("pudding" in global.Memory[STATESKEY]).to.be.false;
     });
+
+    it("reads state from memory", () => {
+        global.Memory[STATESKEY]["pudding"] = {data:"tiggers"};
+
+        let state = new State<string>("pudding");
+
+        expect(state.data).to.equal("tiggers");
+    });
 });
+
 

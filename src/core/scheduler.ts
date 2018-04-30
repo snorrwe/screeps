@@ -17,11 +17,7 @@ export enum ExecutionResult {
 }
 
 export module Schedule {
-    let state = new State<ScheduleData>("Scheduler");
-
-    if (!state.data) {
-        state.data = {};
-    }
+    const state = new State<ScheduleData>("Scheduler");
 
     export const execute = (
         callback: () => any
@@ -42,4 +38,14 @@ export module Schedule {
         }
         return result;
     };
+
+    export const init = () => {
+        if (!state.data) {
+            state.data = {};
+        }
+    };
+
+    export const collectGarbage = () => {
+    };
 }
+
