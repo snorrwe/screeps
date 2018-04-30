@@ -1,0 +1,25 @@
+{
+    "name": "snorrwe-screeps",
+    "version": "0.1.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "deploy": "tsc && grunt screeps",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/snorrwe/screeps.git"
+    },
+    "author": "Daniel Kiss",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/snorrwe/screeps/issues"
+    },
+    "homepage": "https://github.com/snorrwe/screeps#readme",
+    "dependencies": {
+        "grunt": "^1.0.2",
+        "grunt-screeps": "^1.4.0",
+        "typescript": "^2.8.3"
+    }
+}
