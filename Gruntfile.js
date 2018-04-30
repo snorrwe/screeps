@@ -3,13 +3,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-screeps');
 
     var password = grunt.option('password');
+    var branch = grunt.option('branch');
 
     grunt.initConfig({
         screeps: {
             options: {
                 email: 'littlesnorrboy@gmail.com',
                 password: password,
-                branch: 'default',
+                branch: branch || 'default',
                 ptr: false
             },
             dist: {
@@ -18,6 +19,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'dist/',
                         src: ['**/*.{js,wasm}'],
+                        dist: 'main.js',
                         flatten: true
                     }
                 ]

@@ -1,6 +1,5 @@
-import {} from './core/scheduler';
+import { Schedule } from './core/scheduler';
 import { State } from './core/state';
-declare var module: any;
 
 export interface HiveData { }
 
@@ -13,6 +12,7 @@ export class Hive {
     }
 
     tick(): boolean {
+        console.log("tick");
         return this.setup() && this.update() && this.teardown();
     }
 
@@ -37,6 +37,7 @@ export class Hive {
 
     private teardown(): boolean {
         try {
+            State.saveAll();
             return true;
         } catch (error) {
             console.log("Error in Hive#teardown", error);
@@ -45,10 +46,5 @@ export class Hive {
     }
 }
 
-module.exports.loop = function() {
-    let hive = new Hive();
-    hive.tick();
-};
-
-
-
+let hive = new Hive();
+hive.tick();

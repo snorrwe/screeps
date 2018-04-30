@@ -11,17 +11,19 @@ export class State<TData> {
 
     private record: IRecord<TData> = { data: null, modified: null };
 
-    private static states: any;
+    private static states: any = [];
 
     constructor(private key: string) {
         if (this.key in Memory[STATESKEY]) {
             this.record = Memory[STATESKEY][this.key];
         }
+        State.states.push(this);
     }
 
     static init(): void {
-        if (!Memory[STATESKEY]) Memory[STATESKEY] = {};
-        if (!State.states) State.states = Memory[STATESKEY];
+        if (!Memory[STATESKEY]) {
+            Memory[STATESKEY] = {};
+        }
     }
 
     save(): void {
@@ -49,5 +51,6 @@ export class State<TData> {
         }
     }
 }
+
 
 
