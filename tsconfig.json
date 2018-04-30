@@ -8,12 +8,14 @@
         "jsx": "react",
         "typeRoots": [
             "types", "screeps"
+            , "node_modules/@types"
         ],
         "allowJs": true
     },
     "include": [
         "./src/**/*"
         , "./typings/*"
+        , "node_modules/@types/**/*"
     ],
     "exclude": [
         "typings/browser.d.ts",
