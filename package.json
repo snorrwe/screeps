@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "deploy": "tsc && grunt screeps",
+        "cd": "tsc && grunt screeps --password=${SCREEPS_PASSWORD}",
         "test": "mocha -r ts-node/register src/**/*.spec.ts"
     },
     "repository": {

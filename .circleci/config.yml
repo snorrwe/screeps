@@ -43,4 +43,4 @@ jobs:
           name: Deploy
           command: |
             envsubst < Gruntfile.js
-            npm run deploy
+            npm run cd
