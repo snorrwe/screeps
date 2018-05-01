@@ -14,6 +14,23 @@ export interface Creep {
 }
 
 export module Behaviour {
+    export function harvest(creep: any, target: any) {
+        let result: number = OK;
+        creep.say("Harvesting");
+        result = creep.harvest(target);
+        if (result == ERR_NOT_IN_RANGE) {
+            result = creep.moveTo(target);
+        }
+        return result;
+    }
+
+    export function unload(creep: any, target: any) {
+        let result: number = OK;
+        creep.say("Unloading");
+        result = creep.transfer(target, RESOURCE_ENERGY);
+        if (result == ERR_NOT_IN_RANGE) {
+            result = creep.moveTo(target);
+        }
+        return result;
+    }
 }
-
-

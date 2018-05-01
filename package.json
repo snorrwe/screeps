@@ -7,6 +7,7 @@
         "build": "webpack",
         "build:debug": "webpack --mode=development",
         "deploy": "webpack && grunt screeps",
+        "deploy:debug": "webpack --mode=development && grunt screeps",
         "cd": "webpack && grunt screeps --password=${SCREEPS_PASSWORD} --branch=stage",
         "test": "mocha -r ts-node/register src/**/*.spec.ts"
     },

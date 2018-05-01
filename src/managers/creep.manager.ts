@@ -1,6 +1,6 @@
 import { State } from '../core/state';
 import { Creep, CreepRole, Behaviour } from '../creeps/creep';
-import { harvest } from '../creeps/harvester';
+import { runHarvester } from '../creeps/harvester';
 
 export enum TaskType {
 }
@@ -63,38 +63,13 @@ export class CreepManager {
     }
 
     updateCreep(id: string) {
-        const creep: any = Game.getObjectById(id);
         const data = this.creeps[id];
         switch (data.role) {
             case CreepRole.Harvester:
-                if (_.sum(creep.carry) == creep.carryCapacity) {
-                    this.updateTarget(id);
-                }
-                let result = harvest(creep, data);
-                if (result != OK) {
-                    this.updateTarget(id);
-                }
+                runHarvester(id, data);
                 break;
             default:
                 console.log("Unimplemented creep role:", this.creeps[id].role);
-        }
-    }
-
-    updateTarget(id: string) {
-        const creep: any = Game.getObjectById(id);
-        const data = this.creeps[id];
-        switch (data.role) {
-            case CreepRole.Harvester:
-                let find: number = 0;
-                if (_.sum(creep.carry) < creep.carryCapacity) {
-                    find = FIND_SOURCES;
-                } else {
-                    find = FIND_MY_SPAWNS;
-                }
-                data.target = creep.pos.findClosestByRange(find).id;
-                break;
-            default:
-                console.log("Unimplemented creep target:", data);
         }
     }
 }
