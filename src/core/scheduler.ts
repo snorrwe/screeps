@@ -1,7 +1,5 @@
 import { State } from './state';
 
-console.log("yoyoyo");
-
 interface ScheduleRecord {
     timeToExecute: number;
 }
@@ -40,9 +38,7 @@ export module Schedule {
     };
 
     export const init = () => {
-        if (!state.data) {
-            state.data = {};
-        }
+        state.data = state.data || {};
     };
 
     export const collectGarbage = () => {

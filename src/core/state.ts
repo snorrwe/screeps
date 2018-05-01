@@ -14,16 +14,13 @@ export class State<TData> {
     private static states: any = [];
 
     constructor(private key: string) {
+        if (!(STATESKEY in Memory)) {
+            Memory[STATESKEY] = {};
+        }
         if (this.key in Memory[STATESKEY]) {
             this.record = Memory[STATESKEY][this.key];
         }
         State.states.push(this);
-    }
-
-    static init(): void {
-        if (!Memory[STATESKEY]) {
-            Memory[STATESKEY] = {};
-        }
     }
 
     save(): void {
@@ -51,6 +48,10 @@ export class State<TData> {
         }
     }
 }
+
+
+
+
 
 
 

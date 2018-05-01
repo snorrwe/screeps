@@ -1,24 +1,24 @@
 import { Schedule } from './core/scheduler';
 import { State } from './core/state';
+import { CreepManager } from './managers/creep.manager';
 
 export interface HiveData { }
 
 export class Hive {
 
-    constructor(private state: State<HiveData> = null) {
-        if (!this.state) {
-            this.state = new State<HiveData>("hive-mind");
-        }
+    constructor(
+        private state: State<HiveData> = new State<HiveData>("hive-mind")
+        , private creepManager: CreepManager = new CreepManager()
+    ) {
     }
 
     tick(): boolean {
-        console.log("tick");
         return this.setup() && this.update() && this.teardown();
     }
 
     private setup(): boolean {
         try {
-            State.init();
+            Schedule.init();
             return true;
         } catch (error) {
             console.log("Error in Hive#setup", error);
@@ -28,6 +28,7 @@ export class Hive {
 
     private update(): boolean {
         try {
+            this.creepManager.update();
             return true;
         } catch (error) {
             console.log("Error in Hive#update", error);
@@ -48,3 +49,4 @@ export class Hive {
 
 let hive = new Hive();
 hive.tick();
+

@@ -9,11 +9,15 @@ describe("CreepManager tests", () => {
     beforeEach(() => {
         global.Memory = {};
         global.Memory[STATESKEY] = {};
-        global.Game = { time: 234 };
+        global.Game = {
+            time: 234,
+            creeps: {}
+        };
     });
 
     it("", () => {
         let manager = new CreepManager();
     });
 });
+
 

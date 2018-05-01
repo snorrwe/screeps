@@ -1,7 +1,6 @@
-global.Memory = {};
 import { expect } from 'chai';
+global.Memory = {};
 import { State } from './state';
-State.init();
 import { Schedule, ExecutionResult } from './scheduler';
 
 declare var global: any;
@@ -9,7 +8,6 @@ declare var global: any;
 describe("Scheduler tests", () => {
     beforeEach(() => {
         global.Memory = {};
-        State.init();
         Schedule.init();
     });
 
@@ -32,3 +30,4 @@ describe("Scheduler tests", () => {
         expect(result.value).to.equal("winnie");
     });
 });
+
