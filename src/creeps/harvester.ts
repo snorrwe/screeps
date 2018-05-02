@@ -1,7 +1,7 @@
 import { Creep, Behaviour } from './creep';
 
 export function runHarvester(creedId: string, data: Creep): number {
-    const creep = Game.getObjectById(creedId);
+    const creep = Game.creeps[creedId];
     if (!creep) {
         return;
     }

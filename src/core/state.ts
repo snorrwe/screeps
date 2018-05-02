@@ -13,19 +13,19 @@ export class State<TData> {
 
     private static states: any = [];
 
-    constructor(private key: string) {
-        if (!(STATESKEY in Memory)) {
-            Memory[STATESKEY] = {};
+    constructor(private key: string, private statesKey: string = STATESKEY) {
+        if (!(this.statesKey in Memory)) {
+            Memory[this.statesKey] = {};
         }
-        if (this.key in Memory[STATESKEY]) {
-            this.record = Memory[STATESKEY][this.key];
+        if (this.key in Memory[this.statesKey]) {
+            this.record = Memory[this.statesKey][this.key];
         }
         State.states.push(this);
     }
 
     save(): void {
         this.record.modified = Game.time;
-        Memory[STATESKEY][this.key] = this.record;
+        Memory[this.statesKey][this.key] = this.record;
     }
 
     clear(): void {
@@ -38,7 +38,7 @@ export class State<TData> {
         }
         let affected: any = state;
         affected.record = { data: {} as any, modified: Game.time };
-        delete Memory[STATESKEY][affected.key];
+        delete Memory[affected.statesKey][affected.key];
         delete State.states[affected.key]
     }
 
@@ -48,10 +48,3 @@ export class State<TData> {
         }
     }
 }
-
-
-
-
-
-
-

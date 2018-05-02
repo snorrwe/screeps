@@ -11,6 +11,7 @@ export enum CreepRole {
 export interface Creep {
     role: CreepRole;
     target: any;
+    home: string;
 }
 
 export module Behaviour {
