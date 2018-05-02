@@ -48,12 +48,33 @@ export module Behaviour {
         return creep.moveTo(target);
     }
 
-    export function findResource(resource: any,creep: any, data: Creep): void {
+    export function findResource(resource: any, creep: any, data: Creep): void {
         let result = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-            structureType: STRUCTURE_CONTAINER,
-            store: resource
+            filter: (struct: any) => {
+                return struct.energy || struct.store && struct.store[resource] > 0;
+            }
         });
         data.target = result && result.id;
         return result;
     }
+
+    export function findBuildTarget(creep: any, data: any) {
+        let result = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
+        });
+        data.target = result && result.id;
+        return result
+    }
+
+    export function build(creep: any, target: any): number {
+        creep.say("Building");
+        let result = creep.build(target);
+        if (result == ERR_NOT_IN_RANGE) {
+            result = Behaviour.moveTo(creep, target);
+        }
+        return result;
+    }
 }
+
+
+
+
