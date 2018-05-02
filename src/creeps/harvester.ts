@@ -31,7 +31,19 @@ function updateTarget(creep: any, data: CreepModel) {
     if (_.sum(creep.carry) < creep.carryCapacity) {
         return Behaviour.findSource(creep, data);
     }
-    let result = creep.pos.findClosestByRange(FIND_MY_SPAWNS);
+    let result = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        filter: (s: any) => {
+            s.storage && _.sum(s.storage) < s.storageCapacity;
+        }
+    });
+    if (!result) {
+        let result = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            filter: (s: any) => {
+                s.energy && s.energy < s.energyCapacity;
+            }
+        });
+    }
     data.target = result && result.id;
     return result;
 }
+
