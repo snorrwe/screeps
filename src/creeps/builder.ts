@@ -27,6 +27,9 @@ export function runBuilder(creepId: string, data: CreepModel): number {
         result = Behaviour.build(creep, target);
     } else if (target instanceof Source) {
         result = Behaviour.harvest(creep, target);
+        if(_.sum(creep.carry) == creep.carryCapacity){
+            result = ERR_FULL;
+        }
     } else {
         result = Behaviour.load(RESOURCE_ENERGY, creep, target);
     }
