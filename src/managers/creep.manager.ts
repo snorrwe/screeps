@@ -1,7 +1,8 @@
 import { State } from '../core/state';
 import { CreepModel, CreepRole, Behaviour } from '../creeps/creep';
 import { runHarvester } from '../creeps/harvester';
-import {  runBuilder} from '../creeps/builder';
+import { runBuilder } from '../creeps/builder';
+import { runUpgrader } from '../creeps/upgrader';
 import { Schedule } from '../core/scheduler';
 import { normalise } from '../core';
 
@@ -125,7 +126,7 @@ export class CreepManager {
         }
     }
 
-    private assignRole(id: string, creep: any) {
+    private assignRole(id: string, creep: Creep) {
         const creepStats: any = {};
         for (let id in creep.body) {
             const part = creep.body[id];
@@ -151,16 +152,15 @@ export class CreepManager {
         const data = this.creeps[id];
         switch (data.role) {
             case CreepRole.Harvester:
-            //TODO
-            case CreepRole.Upgrader:
                 runHarvester(id, data);
                 break;
             case CreepRole.Builder:
                 runBuilder(id, data);
+            case CreepRole.Upgrader:
+                runUpgrader(id, data);
                 break;
             default:
                 console.log("Unimplemented creep role:", this.creeps[id].role);
         }
     }
 }
-

@@ -58,7 +58,7 @@ export module Behaviour {
         return result;
     }
 
-    export function findBuildTarget(creep: Creep, data: any) {
+    export function findBuildTarget(creep: Creep, data: CreepModel) {
         let result = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
         data.target = result && result.id;
         return result
@@ -72,10 +72,24 @@ export module Behaviour {
         }
         return result;
     }
+
+    export function upgrade(creep: Creep, target: any): number {
+        creep.say("Upgrading");
+        let result: number = creep.upgradeController(target);
+        if (result == ERR_NOT_IN_RANGE) {
+            result = Behaviour.moveTo(creep, target);
+        }
+        return result;
+    }
+
+    export function findUpgradeTarget(creep: Creep, data: CreepModel) {
+        let result = creep.room.controller;
+        if (result.my){
+            data.target = result.id;
+        }else{
+            result = null;
+        }
+        return result;
+    }
 }
-
-
-
-
-
 
