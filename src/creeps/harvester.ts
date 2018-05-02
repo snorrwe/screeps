@@ -1,6 +1,6 @@
-import { Creep, Behaviour } from './creep';
+import { CreepModel, Behaviour } from './creep';
 
-export function runHarvester(creedId: string, data: Creep): number {
+export function runHarvester(creedId: string, data: CreepModel): number {
     const creep = Game.creeps[creedId];
     if (!creep) {
         return;
@@ -9,7 +9,7 @@ export function runHarvester(creedId: string, data: Creep): number {
     return _runHarvester(creep, target, data);
 }
 
-function _runHarvester(creep: any, target: any, data: Creep): number {
+function _runHarvester(creep: any, target: any, data: CreepModel): number {
     const _updateTarget = () => {
         updateTarget(creep, data);
         target = Game.getObjectById(data.target);
@@ -27,7 +27,7 @@ function _runHarvester(creep: any, target: any, data: Creep): number {
     return Behaviour.unload(creep, target);
 }
 
-function updateTarget(creep: any, data: Creep): void {
+function updateTarget(creep: any, data: CreepModel): void {
     let find: number = 0;
     if (_.sum(creep.carry) < creep.carryCapacity) {
         find = FIND_SOURCES;

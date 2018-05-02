@@ -1,5 +1,5 @@
 import { State } from '../core/state';
-import { Creep, CreepRole, Behaviour } from '../creeps/creep';
+import { CreepModel, CreepRole, Behaviour } from '../creeps/creep';
 import { runHarvester } from '../creeps/harvester';
 import {  runBuilder} from '../creeps/builder';
 import { Schedule } from '../core/scheduler';
@@ -14,7 +14,7 @@ export interface Task {
 }
 
 interface CreepManagerData {
-    creeps: { [key: string]: Creep }
+    creeps: { [key: string]: CreepModel }
 }
 
 // TODO

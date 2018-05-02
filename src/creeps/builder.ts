@@ -1,6 +1,6 @@
-import { Creep, Behaviour } from './creep';
+import { CreepModel, Behaviour } from './creep';
 
-export function runBuilder(creepId: string, data: Creep): number {
+export function runBuilder(creepId: string, data: CreepModel): number {
     const creep = Game.creeps[creepId];
     if (!creep) {
         return ERR_INVALID_TARGET;
