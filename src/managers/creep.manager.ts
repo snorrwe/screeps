@@ -1,6 +1,7 @@
 import { State } from '../core/state';
 import { Creep, CreepRole, Behaviour } from '../creeps/creep';
 import { runHarvester } from '../creeps/harvester';
+import {  runBuilder} from '../creeps/builder';
 import { Schedule } from '../core/scheduler';
 import { normalise } from '../core';
 
@@ -152,8 +153,10 @@ export class CreepManager {
             case CreepRole.Harvester:
             //TODO
             case CreepRole.Upgrader:
-            case CreepRole.Builder:
                 runHarvester(id, data);
+                break;
+            case CreepRole.Builder:
+                runBuilder(id, data);
                 break;
             default:
                 console.log("Unimplemented creep role:", this.creeps[id].role);

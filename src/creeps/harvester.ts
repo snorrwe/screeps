@@ -35,8 +35,7 @@ function updateTarget(creep: any, data: Creep): void {
         find = FIND_MY_SPAWNS;
     }
     let result = creep.pos.findClosestByRange(find);
-    data.target = result.id;
+    data.target = result && result.id;
     return result;
 }
-
 
