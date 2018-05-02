@@ -25,6 +25,12 @@ export module Behaviour {
         return result;
     }
 
+    export function findSource(creep: Creep, data: CreepModel) {
+        let result = creep.pos.findClosestByRange(FIND_SOURCES);
+        data.target = result && result.id;
+        return result;
+    }
+
     export function unload(creep: Creep, target: any) {
         creep.say("Unloading");
         let result: number = OK;
@@ -48,10 +54,11 @@ export module Behaviour {
         return creep.moveTo(target);
     }
 
-    export function findResource(resource: any, creep: Creep, data: CreepModel) {
+    export function findResource(resource: any, creep: Creep, data: CreepModel, includeNonContainers = false) {
         let result = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: (struct: any) => {
-                return struct.energy || struct.store && struct.store[resource] > 0;
+                return (includeNonContainers && struct.energy) ||
+                    (struct.store && struct.store[resource] > 0);
             }
         });
         data.target = result && result.id;
@@ -84,12 +91,11 @@ export module Behaviour {
 
     export function findUpgradeTarget(creep: Creep, data: CreepModel) {
         let result = creep.room.controller;
-        if (result.my){
+        if (result.my) {
             data.target = result.id;
-        }else{
+        } else {
             result = null;
         }
         return result;
     }
 }
-

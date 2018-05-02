@@ -84,6 +84,7 @@ export class CreepManager {
                 return;
             }
         }
+        this.spawnCreep(roomid, CreepRole.Harvester);
     }
 
     spawnCreep(roomid: string, role: CreepRole) {
@@ -156,6 +157,7 @@ export class CreepManager {
                 break;
             case CreepRole.Builder:
                 runBuilder(id, data);
+                break;
             case CreepRole.Upgrader:
                 runUpgrader(id, data);
                 break;
@@ -164,3 +166,4 @@ export class CreepManager {
         }
     }
 }
+

@@ -9,6 +9,9 @@ export function runBuilder(creepId: string, data: CreepModel): number {
     if (!data.target) {
         if (!creep.carry[RESOURCE_ENERGY]) {
             target = Behaviour.findResource(RESOURCE_ENERGY, creep, data);
+            if(!target){
+                target = Behaviour.findSource(creep, data);
+            }
         } else {
             target = Behaviour.findBuildTarget(creep, data);
         }
@@ -22,6 +25,8 @@ export function runBuilder(creepId: string, data: CreepModel): number {
     let result: number = OK;
     if (target instanceof ConstructionSite) {
         result = Behaviour.build(creep, target);
+    } else if (target instanceof Source) {
+        result = Behaviour.harvest(creep, target);
     } else {
         result = Behaviour.load(RESOURCE_ENERGY, creep, target);
     }
@@ -30,5 +35,4 @@ export function runBuilder(creepId: string, data: CreepModel): number {
     }
     return result;
 }
-
 

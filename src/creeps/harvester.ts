@@ -27,15 +27,11 @@ function _runHarvester(creep: any, target: any, data: CreepModel): number {
     return Behaviour.unload(creep, target);
 }
 
-function updateTarget(creep: any, data: CreepModel): void {
-    let find: number = 0;
+function updateTarget(creep: any, data: CreepModel) {
     if (_.sum(creep.carry) < creep.carryCapacity) {
-        find = FIND_SOURCES;
-    } else {
-        find = FIND_MY_SPAWNS;
+        return Behaviour.findSource(creep, data);
     }
-    let result = creep.pos.findClosestByRange(find);
+    let result = creep.pos.findClosestByRange(FIND_MY_SPAWNS);
     data.target = result && result.id;
     return result;
 }
-
