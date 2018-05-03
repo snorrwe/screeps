@@ -21,7 +21,6 @@ function _runHarvester(creep: any, target: any, data: CreepModel): number {
         target = updateTarget(creep, data);
         return _runHarvester(creep, target, data);
     }
-    console.log("??",target);
     return Behaviour.unload(creep, target);
 }
 
