@@ -10,20 +10,18 @@ export function runHarvester(creedId: string, data: CreepModel): number {
 }
 
 function _runHarvester(creep: any, target: any, data: CreepModel): number {
-    const _updateTarget = () => {
-        updateTarget(creep, data);
-        target = Game.getObjectById(data.target);
-        return _runHarvester(creep, target, data);
-    };
     if (target instanceof Source) {
         if (_.sum(creep.carry) >= creep.carryCapacity) {
-            return _updateTarget();
+            target = updateTarget(creep, data);
+            return _runHarvester(creep, target, data);
         }
         return Behaviour.harvest(creep, target);
     }
     if (creep.carry[RESOURCE_ENERGY] == 0) {
-        return _updateTarget();
+        target = updateTarget(creep, data);
+        return _runHarvester(creep, target, data);
     }
+    console.log("??",target);
     return Behaviour.unload(creep, target);
 }
 
@@ -37,13 +35,12 @@ function updateTarget(creep: any, data: CreepModel) {
         }
     });
     if (!result) {
-        let result = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        result = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: (s: any) => {
-                s.energy && s.energy < s.energyCapacity;
+                return (s.energy && s.energy < s.energyCapacity) || s.energy === 0;
             }
         });
     }
     data.target = result && result.id;
     return result;
 }
-
